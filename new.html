@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Submit to Google Sheet</title>
+</head>
+<body>
+
+<h2>Contact Form</h2>
+
+<form id="myForm">
+    <input type="text" name="name" placeholder="Your Name" required><br><br>
+    <input type="text" name="phone" placeholder="Phone Number" required><br><br>
+    <input type="email" name="email" placeholder="Email" required><br><br>
+    <textarea name="message" placeholder="Message"></textarea><br><br>
+    <button type="submit">Submit</button>
+</form>
+
+<script>
+document.getElementById("myForm").addEventListener("submit", function(e){
+    e.preventDefault();
+
+    let data = {
+        name: this.name.value,
+        phone: this.phone.value,
+        email: this.email.value,
+        message: this.message.value
+    };
+
+    fetch("https://script.google.com/macros/s/AKfycbyNGB3a5dU0od-aJWgDvWGPENHIbv6KHtd1vHdUhaHbY9YjHl_7H3Vqmb0NrhZclR9Q/exec", {
+        method: "POST",
+        body: JSON.stringify(data)
+    })
+    .then(res => res.text())
+    .then(res => alert("Submitted successfully!"));
+});
+</script>
+
+</body>
+</html>
